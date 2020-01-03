@@ -2,7 +2,7 @@
 set -euo pipefail
 
 # Reset README to template stub
-cp README.tpl.md README.md
+cp ci/README.tpl.md README.md
 
 for filename in *.jscad; do
 	title=$(awk -F ':' '/title\s*:/{ print $2 }' "${filename}")
