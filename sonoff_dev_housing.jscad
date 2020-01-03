@@ -1,15 +1,15 @@
 // title      : Sonoff DEV box for lamp post
 // author     : Knut Ahlers
-// revision   : 0.2
+// revision   : 0.2.1
 
 // All measurements in mm
-const innerSpace = 15 // free room on the inside from the board not to bend the cables that hard
+const innerSpace = 7 // free room on the inside from the board not to bend the cables that hard
 const innerSpaceHeight = 30
 const boardSize = 50 // 50x50mm
 const boardSupportHeight = 10 // 10mm pins to put the board on
-const boardSupportRadius = 1 // 2mm (holes do have 3mm)
+const boardSupportRadius = 2
 const boardSupportEdgeDist = 2.5 // 2.5mm from the edges
-const lampPostRadius = 7.5 // 15mm diameter
+const lampPostRadius = 7 // 14mm diameter
 const lampPostSupport = lampPostRadius + 4.5 // adjust for proper grip
 const screwBaseSize = 3 // block to screw the screw into
 const screwHeadRadius = 1.25 // screw head diameter = 2*screwHeadRadius
