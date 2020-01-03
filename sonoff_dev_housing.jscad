@@ -1,6 +1,6 @@
 // title      : Sonoff DEV box for lamp post
 // author     : Knut Ahlers
-// revision   : 0.2.1
+// revision   : 0.2.2
 
 // All measurements in mm
 const innerSpace = 7 // free room on the inside from the board not to bend the cables that hard
@@ -13,7 +13,7 @@ const lampPostRadius = 7 // 14mm diameter
 const lampPostSupport = lampPostRadius + 4.5 // adjust for proper grip
 const screwBaseSize = 3 // block to screw the screw into
 const screwHeadRadius = 1.25 // screw head diameter = 2*screwHeadRadius
-const screwDiameter = 0.4 // diameter for the hole the screw is screwed into
+const screwRadius = 0.7 // radius for the hole the screw is screwed into
 const ventSize = 1
 const ventWidth = (boardSize + innerSpace - 5 * ventSize) / 2
 const wall = 2.5 // wall thickness
@@ -72,7 +72,7 @@ function main() {
 
   const screwHole = cylinder({
     h: screwBaseSize,
-    r: screwDiameter,
+    r: screwRadius,
     center: true,
   })
 
