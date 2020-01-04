@@ -1,7 +1,7 @@
 /*
  * title      : Sonoff DEV box for lamp post
  * author     : Knut Ahlers
- * revision   : 0.2.3
+ * revision   : 0.2.4
  */
 
 // All measurements in mm
@@ -16,9 +16,6 @@ const lampPostSupport = lampPostRadius + 4.5 // adjust for proper grip
 const powerInletHeight = 8 // Size of power adapter
 const powerInletWidth = 14 // Size of power adapter
 const powerInletPosY = boardSize / -2 + 13 + powerInletWidth / 2
-const screwBaseSize = 3 // block to screw the screw into
-const screwHeadRadius = 1.25 // screw head diameter = 2*screwHeadRadius
-const screwRadius = 0.7 // radius for the hole the screw is screwed into
 const ventSize = 1
 const ventWidth = (boardSize + innerSpace - 5 * ventSize) / 2
 const wall = 1.5 // wall thickness
@@ -71,22 +68,6 @@ function main() {
     center: true,
   })
 
-  const screwHeadSink = sphere({
-    r: screwHeadRadius,
-    center: true,
-  })
-
-  const screwHole = cylinder({
-    h: screwBaseSize,
-    r: screwRadius,
-    center: true,
-  })
-
-  const screwBase = difference(
-    cube({ size: [screwBaseSize, screwBaseSize, screwBaseSize], center: true }),
-    screwHole
-  )
-
   return [
     // Housing without lid
     union(
@@ -117,8 +98,8 @@ function main() {
                   resolution: 100,
                 }).translate([lampPostRadius * -1, 0, 0])
               )
-                .rotateY(90)
-                .translate([0, 0, (innerSpaceHeight + wall) / 2])
+              .rotateY(90)
+              .translate([0, 0, (innerSpaceHeight + wall) / 2])
             ),
 
             // Inner housing
@@ -130,19 +111,19 @@ function main() {
           )),
           // Outer border of power inlet
           cube({ size: [wall, powerInletWidth + wall * 2, powerInletHeight + wall * 2], center: true })
-            .translate([
-              (boardSize + innerSpace + wall) / 2,
-              powerInletPosY,
-              (innerSpaceHeight + wall) / 2 - (wall + powerInletHeight / 2),
-            ])
-        ),
-        // Inner space of power inlet
-        cube({ size: [wall, powerInletWidth, powerInletHeight], center: true })
           .translate([
             (boardSize + innerSpace + wall) / 2,
             powerInletPosY,
             (innerSpaceHeight + wall) / 2 - (wall + powerInletHeight / 2),
           ])
+        ),
+        // Inner space of power inlet
+        cube({ size: [wall, powerInletWidth, powerInletHeight], center: true })
+        .translate([
+          (boardSize + innerSpace + wall) / 2,
+          powerInletPosY,
+          (innerSpaceHeight + wall) / 2 - (wall + powerInletHeight / 2),
+        ])
       ),
 
       // Board supports
@@ -165,83 +146,15 @@ function main() {
         (boardSize / 2 - boardSupportEdgeDist) * -1,
         (boardSize / 2 - boardSupportEdgeDist) * -1,
         (innerSpaceHeight + wall) / 2 - (boardSupportHeight + wall) / 2,
-      ], boardSupport),
-
-      // Screw bases
-      translate([
-        (boardSize + innerSpace) / 2 - screwBaseSize / 2,
-        (boardSize + innerSpace) / 2 - screwBaseSize / 2,
-        ((innerSpaceHeight + wall) / 2 - screwBaseSize / 2) * -1,
-      ], screwBase),
-      translate([
-        ((boardSize + innerSpace) / 2 - screwBaseSize / 2) * -1,
-        (boardSize + innerSpace) / 2 - screwBaseSize / 2,
-        ((innerSpaceHeight + wall) / 2 - screwBaseSize / 2) * -1,
-      ], screwBase),
-      translate([
-        (boardSize + innerSpace) / 2 - screwBaseSize / 2,
-        ((boardSize + innerSpace) / 2 - screwBaseSize / 2) * -1,
-        ((innerSpaceHeight + wall) / 2 - screwBaseSize / 2) * -1,
-      ], screwBase),
-      translate([
-        ((boardSize + innerSpace) / 2 - screwBaseSize / 2) * -1,
-        ((boardSize + innerSpace) / 2 - screwBaseSize / 2) * -1,
-        ((innerSpaceHeight + wall) / 2 - screwBaseSize / 2) * -1,
-      ], screwBase)
+      ], boardSupport)
     ).translate([(boardSize + innerSpace + wall + 5) * -0.5, 0, (innerSpaceHeight + wall) / 2]),
 
     // Lid
-    difference(
-      cube({ size: [
-        boardSize + innerSpace + wall * 2,
-        boardSize + innerSpace + wall * 2,
-        wall,
-      ], center: true }),
-
-      // Screw holes
-      translate([
-        (boardSize + innerSpace) / 2 - screwBaseSize / 2,
-        (boardSize + innerSpace) / 2 - screwBaseSize / 2,
-        0,
-      ], screwHole),
-      translate([
-        ((boardSize + innerSpace) / 2 - screwBaseSize / 2) * -1,
-        (boardSize + innerSpace) / 2 - screwBaseSize / 2,
-        0,
-      ], screwHole),
-      translate([
-        (boardSize + innerSpace) / 2 - screwBaseSize / 2,
-        ((boardSize + innerSpace) / 2 - screwBaseSize / 2) * -1,
-        0,
-      ], screwHole),
-      translate([
-        ((boardSize + innerSpace) / 2 - screwBaseSize / 2) * -1,
-        ((boardSize + innerSpace) / 2 - screwBaseSize / 2) * -1,
-        0,
-      ], screwHole),
-
-      // Screw head sinks
-      translate([
-        (boardSize + innerSpace) / 2 - screwBaseSize / 2,
-        (boardSize + innerSpace) / 2 - screwBaseSize / 2,
-        screwHeadRadius - wall / 3,
-      ], screwHeadSink),
-      translate([
-        ((boardSize + innerSpace) / 2 - screwBaseSize / 2) * -1,
-        (boardSize + innerSpace) / 2 - screwBaseSize / 2,
-        screwHeadRadius - wall / 3,
-      ], screwHeadSink),
-      translate([
-        (boardSize + innerSpace) / 2 - screwBaseSize / 2,
-        ((boardSize + innerSpace) / 2 - screwBaseSize / 2) * -1,
-        screwHeadRadius - wall / 3,
-      ], screwHeadSink),
-      translate([
-        ((boardSize + innerSpace) / 2 - screwBaseSize / 2) * -1,
-        ((boardSize + innerSpace) / 2 - screwBaseSize / 2) * -1,
-        screwHeadRadius - wall / 3,
-      ], screwHeadSink)
-    ).translate([(boardSize + innerSpace + wall + 5) * 0.5, 0, wall / 2]),
+    difference(cube({ size: [
+      boardSize + innerSpace + wall * 2,
+      boardSize + innerSpace + wall * 2,
+      wall,
+    ], center: true })).translate([(boardSize + innerSpace + wall + 5) * 0.5, 0, wall / 2]),
   ]
 }
 
