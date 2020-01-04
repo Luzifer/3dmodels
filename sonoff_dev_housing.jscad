@@ -41,18 +41,18 @@ function addVents(obj) {
       cube({ size: [
         boardSize + innerSpace + wall + 10,
         ventSize * 3,
-        ventSize
-      ], center: true}),
+        ventSize,
+      ], center: true }),
       cube({ size: [
         ventSize * 3,
         boardSize + innerSpace + wall + 10,
-        ventSize
-      ], center: true})
+        ventSize,
+      ], center: true })
     )
   )
 
-  const endZ = ((innerSpaceHeight + wall) / 2) * -1 + 1.5 * ventSize
-  const startZ = ((innerSpaceHeight + wall) / 2) - 2 * ventSize - wall
+  const endZ = (innerSpaceHeight + wall) / 2 * -1 + 1.5 * ventSize
+  const startZ = (innerSpaceHeight + wall) / 2 - 2 * ventSize - wall
   for (let z = startZ; z >= endZ; z -= 3 * ventSize) {
     obj = difference(
       obj,
@@ -63,6 +63,7 @@ function addVents(obj) {
   return obj
 }
 
+/* exported main */
 function main() {
   const boardSupport = cylinder({
     h: boardSupportHeight + wall,
@@ -92,58 +93,56 @@ function main() {
       // Housing with holder
       difference(
         union(
-          addVents(
-            difference(
-              union(
-                // Main housing block
-                cube({ size: [
-                  boardSize + innerSpace + wall*2,
-                  boardSize + innerSpace + wall*2,
-                  innerSpaceHeight + wall,
-                ], center: true }),
-
-                // Lamp post holder
-                difference(
-                  cylinder({
-                    h: boardSize + innerSpace + wall,
-                    r: lampPostSupport,
-                    center: true,
-                    resolution: 100,
-                  }),
-                  cylinder({
-                    h: boardSize + innerSpace + wall,
-                    r: lampPostRadius,
-                    center: true,
-                    resolution: 100,
-                  }).translate([lampPostRadius * -1, 0, 0])
-                )
-                .rotateY(90)
-                .translate([0, 0, (innerSpaceHeight + wall)/2])
-              ),
-
-              // Inner housing
+          addVents(difference(
+            union(
+              // Main housing block
               cube({ size: [
-                boardSize + innerSpace,
-                boardSize + innerSpace,
-                innerSpaceHeight,
-              ], center: true }).translate([0, 0, wall * -0.5])
-            )
-          ),
+                boardSize + innerSpace + wall * 2,
+                boardSize + innerSpace + wall * 2,
+                innerSpaceHeight + wall,
+              ], center: true }),
+
+              // Lamp post holder
+              difference(
+                cylinder({
+                  h: boardSize + innerSpace + wall,
+                  r: lampPostSupport,
+                  center: true,
+                  resolution: 100,
+                }),
+                cylinder({
+                  h: boardSize + innerSpace + wall,
+                  r: lampPostRadius,
+                  center: true,
+                  resolution: 100,
+                }).translate([lampPostRadius * -1, 0, 0])
+              )
+                .rotateY(90)
+                .translate([0, 0, (innerSpaceHeight + wall) / 2])
+            ),
+
+            // Inner housing
+            cube({ size: [
+              boardSize + innerSpace,
+              boardSize + innerSpace,
+              innerSpaceHeight,
+            ], center: true }).translate([0, 0, wall * -0.5])
+          )),
           // Outer border of power inlet
           cube({ size: [wall, powerInletWidth + wall * 2, powerInletHeight + wall * 2], center: true })
+            .translate([
+              (boardSize + innerSpace + wall) / 2,
+              powerInletPosY,
+              (innerSpaceHeight + wall) / 2 - (wall + powerInletHeight / 2),
+            ])
+        ),
+        // Inner space of power inlet
+        cube({ size: [wall, powerInletWidth, powerInletHeight], center: true })
           .translate([
             (boardSize + innerSpace + wall) / 2,
             powerInletPosY,
-            (innerSpaceHeight + wall) / 2 - (wall + powerInletHeight / 2)
+            (innerSpaceHeight + wall) / 2 - (wall + powerInletHeight / 2),
           ])
-        ),
-        // Inner space of power inlet
-        cube({ size: [wall, powerInletWidth, powerInletHeight], center: true})
-        .translate([
-          (boardSize + innerSpace + wall) / 2,
-          powerInletPosY,
-          (innerSpaceHeight + wall) / 2 - (wall + powerInletHeight / 2)
-        ])
       ),
 
       // Board supports
@@ -189,7 +188,7 @@ function main() {
         ((boardSize + innerSpace) / 2 - screwBaseSize / 2) * -1,
         ((innerSpaceHeight + wall) / 2 - screwBaseSize / 2) * -1,
       ], screwBase)
-    ).translate([(boardSize + innerSpace + wall + 5) * -0.5, 0, (innerSpaceHeight + wall)/2]),
+    ).translate([(boardSize + innerSpace + wall + 5) * -0.5, 0, (innerSpaceHeight + wall) / 2]),
 
     // Lid
     difference(
@@ -242,7 +241,7 @@ function main() {
         ((boardSize + innerSpace) / 2 - screwBaseSize / 2) * -1,
         screwHeadRadius - wall / 3,
       ], screwHeadSink)
-    ).translate([(boardSize + innerSpace + wall + 5) * 0.5, 0, wall/2])
+    ).translate([(boardSize + innerSpace + wall + 5) * 0.5, 0, wall / 2]),
   ]
 }
 
