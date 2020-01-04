@@ -1,6 +1,8 @@
-// title      : Sonoff DEV box for lamp post
-// author     : Knut Ahlers
-// revision   : 0.2.3
+/*
+ * title      : Sonoff DEV box for lamp post
+ * author     : Knut Ahlers
+ * revision   : 0.2.3
+ */
 
 // All measurements in mm
 const boardSize = 51 // 51x51mm
