@@ -1,22 +1,25 @@
 // title      : Sonoff DEV box for lamp post
 // author     : Knut Ahlers
-// revision   : 0.2.2
+// revision   : 0.2.3
 
 // All measurements in mm
-const innerSpace = 7 // free room on the inside from the board not to bend the cables that hard
-const innerSpaceHeight = 30
-const boardSize = 50 // 50x50mm
-const boardSupportHeight = 10 // 10mm pins to put the board on
-const boardSupportRadius = 2
+const boardSize = 51 // 51x51mm
+const boardSupportHeight = 6 // pins to put the board on
+const boardSupportRadius = 1.25
 const boardSupportEdgeDist = 2.5 // 2.5mm from the edges
+const innerSpace = 7 // free room on the inside from the board not to bend the cables that hard
+const innerSpaceHeight = 20
 const lampPostRadius = 7 // 14mm diameter
 const lampPostSupport = lampPostRadius + 4.5 // adjust for proper grip
+const powerInletHeight = 8 // Size of power adapter
+const powerInletWidth = 14 // Size of power adapter
+const powerInletPosY = boardSize / -2 + 13 + powerInletWidth / 2
 const screwBaseSize = 3 // block to screw the screw into
 const screwHeadRadius = 1.25 // screw head diameter = 2*screwHeadRadius
 const screwRadius = 0.7 // radius for the hole the screw is screwed into
 const ventSize = 1
 const ventWidth = (boardSize + innerSpace - 5 * ventSize) / 2
-const wall = 2.5 // wall thickness
+const wall = 1.5 // wall thickness
 
 function addVents(obj) {
   const ventRow = difference(
@@ -85,41 +88,60 @@ function main() {
     // Housing without lid
     union(
       // Housing with holder
-      addVents(
-        difference(
-          union(
-            // Main housing block
-            cube({ size: [
-              boardSize + innerSpace + wall,
-              boardSize + innerSpace + wall,
-              innerSpaceHeight + wall,
-            ], center: true }),
-            // Lamp post holder
+      difference(
+        union(
+          addVents(
             difference(
-              cylinder({
-                h: boardSize + innerSpace + wall,
-                r: lampPostSupport,
-                center: true,
-                resolution: 100,
-              }),
-              cylinder({
-                h: boardSize + innerSpace + wall,
-                r: lampPostRadius,
-                center: true,
-                resolution: 100,
-              }).translate([-7.5, 0, 0])
-            )
-            .rotateY(90)
-            .translate([0, 0, (innerSpaceHeight + wall)/2])
-          ),
+              union(
+                // Main housing block
+                cube({ size: [
+                  boardSize + innerSpace + wall*2,
+                  boardSize + innerSpace + wall*2,
+                  innerSpaceHeight + wall,
+                ], center: true }),
 
-          // Inner housing
-          cube({ size: [
-            boardSize + innerSpace,
-            boardSize + innerSpace,
-            innerSpaceHeight,
-          ], center: true }).translate([0, 0, wall * -1])
-        )
+                // Lamp post holder
+                difference(
+                  cylinder({
+                    h: boardSize + innerSpace + wall,
+                    r: lampPostSupport,
+                    center: true,
+                    resolution: 100,
+                  }),
+                  cylinder({
+                    h: boardSize + innerSpace + wall,
+                    r: lampPostRadius,
+                    center: true,
+                    resolution: 100,
+                  }).translate([lampPostRadius * -1, 0, 0])
+                )
+                .rotateY(90)
+                .translate([0, 0, (innerSpaceHeight + wall)/2])
+              ),
+
+              // Inner housing
+              cube({ size: [
+                boardSize + innerSpace,
+                boardSize + innerSpace,
+                innerSpaceHeight,
+              ], center: true }).translate([0, 0, wall * -0.5])
+            )
+          ),
+          // Outer border of power inlet
+          cube({ size: [wall, powerInletWidth + wall * 2, powerInletHeight + wall * 2], center: true })
+          .translate([
+            (boardSize + innerSpace + wall) / 2,
+            powerInletPosY,
+            (innerSpaceHeight + wall) / 2 - (wall + powerInletHeight / 2)
+          ])
+        ),
+        // Inner space of power inlet
+        cube({ size: [wall, powerInletWidth, powerInletHeight], center: true})
+        .translate([
+          (boardSize + innerSpace + wall) / 2,
+          powerInletPosY,
+          (innerSpaceHeight + wall) / 2 - (wall + powerInletHeight / 2)
+        ])
       ),
 
       // Board supports
@@ -170,8 +192,8 @@ function main() {
     // Lid
     difference(
       cube({ size: [
-        boardSize + innerSpace + wall,
-        boardSize + innerSpace + wall,
+        boardSize + innerSpace + wall * 2,
+        boardSize + innerSpace + wall * 2,
         wall,
       ], center: true }),
 
