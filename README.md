@@ -6,4 +6,4 @@ In case you have use for those models thankfully to Github you can preview all m
 
 | Model | Source | Version | Title |
 | ----- | ------ | ------- | ----- |
-| [`sonoff_dev_housing.stl`](sonoff_dev_housing.stl) | [`sonoff_dev_housing.jscad`](sonoff_dev_housing.jscad) | 0.2.5 | Sonoff DEV box for lamp post |
+| [`sonoff_dev_housing.stl`](sonoff_dev_housing.stl) | [`sonoff_dev_housing.jscad`](sonoff_dev_housing.jscad) | 0.2.6 | Sonoff DEV box for lamp post |

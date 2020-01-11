@@ -1,24 +1,24 @@
 /*
  * title      : Sonoff DEV box for lamp post
  * author     : Knut Ahlers
- * revision   : 0.2.5
+ * revision   : 0.2.6
  */
 
 // All measurements in mm
 const boardSize = 51 // 51x51mm
 const boardSupportHeight = 6 // pins to put the board on
 const boardSupportRadius = 1.25
-const boardSupportEdgeDist = 2.5 // 2.5mm from the edges
-const innerSpace = 7 // free room on the inside from the board not to bend the cables that hard
+const boardSupportEdgeDist = 3 // mm from the edges to hole center
+const innerSpace = 10 // free room on the inside from the board not to bend the cables that hard
 const innerSpaceHeight = 20
 const lampPostRadius = 7 // 14mm diameter
 const lampPostSupport = lampPostRadius + 4.5 // adjust for proper grip
 const powerInletHeight = 8 // Size of power adapter
 const powerInletWidth = 14 // Size of power adapter
-const powerInletPosY = boardSize / -2 + 13 + powerInletWidth / 2
+const powerInletPosY = boardSize / -2 + 11 + powerInletWidth / 2
 const ventSize = 1
 const ventWidth = (boardSize + innerSpace - 5 * ventSize) / 2
-const wall = 1.5 // wall thickness
+const wall = 1 // wall thickness
 
 function addVents(obj) {
   const ventRow = difference(
@@ -162,11 +162,21 @@ function main() {
           boardSize + innerSpace,
           wall,
         ], center: true }),
+        // cut out inside to save material
         cube({ size: [
           boardSize + innerSpace - 2 * wall,
           boardSize + innerSpace - 2 * wall,
           wall,
-        ], center: true })
+        ], center: true }),
+        // cut out corners as they don't really fit when printed
+        cube({ size: [5 * wall, 5 * wall, wall], center: true })
+          .translate([(boardSize + innerSpace - wall) / 2, (boardSize + innerSpace - wall) / 2, 0]),
+        cube({ size: [5 * wall, 5 * wall, wall], center: true })
+          .translate([(boardSize + innerSpace - wall) / -2, (boardSize + innerSpace - wall) / 2, 0]),
+        cube({ size: [5 * wall, 5 * wall, wall], center: true })
+          .translate([(boardSize + innerSpace - wall) / -2, (boardSize + innerSpace - wall) / -2, 0]),
+        cube({ size: [5 * wall, 5 * wall, wall], center: true })
+          .translate([(boardSize + innerSpace - wall) / 2, (boardSize + innerSpace - wall) / -2, 0])
       ).translate([0, 0, wall])
     ).translate([(boardSize + innerSpace + wall + 5) * 0.5, 0, wall / 2]),
   ]
