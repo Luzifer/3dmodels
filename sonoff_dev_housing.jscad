@@ -1,7 +1,7 @@
 /*
  * title      : Sonoff DEV box for lamp post
  * author     : Knut Ahlers
- * revision   : 0.2.4
+ * revision   : 0.2.5
  */
 
 // All measurements in mm
@@ -98,8 +98,8 @@ function main() {
                   resolution: 100,
                 }).translate([lampPostRadius * -1, 0, 0])
               )
-              .rotateY(90)
-              .translate([0, 0, (innerSpaceHeight + wall) / 2])
+                .rotateY(90)
+                .translate([0, 0, (innerSpaceHeight + wall) / 2])
             ),
 
             // Inner housing
@@ -111,19 +111,19 @@ function main() {
           )),
           // Outer border of power inlet
           cube({ size: [wall, powerInletWidth + wall * 2, powerInletHeight + wall * 2], center: true })
+            .translate([
+              (boardSize + innerSpace + wall) / 2,
+              powerInletPosY,
+              (innerSpaceHeight + wall) / 2 - (wall + powerInletHeight / 2),
+            ])
+        ),
+        // Inner space of power inlet
+        cube({ size: [wall, powerInletWidth, powerInletHeight], center: true })
           .translate([
             (boardSize + innerSpace + wall) / 2,
             powerInletPosY,
             (innerSpaceHeight + wall) / 2 - (wall + powerInletHeight / 2),
           ])
-        ),
-        // Inner space of power inlet
-        cube({ size: [wall, powerInletWidth, powerInletHeight], center: true })
-        .translate([
-          (boardSize + innerSpace + wall) / 2,
-          powerInletPosY,
-          (innerSpaceHeight + wall) / 2 - (wall + powerInletHeight / 2),
-        ])
       ),
 
       // Board supports
@@ -150,11 +150,25 @@ function main() {
     ).translate([(boardSize + innerSpace + wall + 5) * -0.5, 0, (innerSpaceHeight + wall) / 2]),
 
     // Lid
-    difference(cube({ size: [
-      boardSize + innerSpace + wall * 2,
-      boardSize + innerSpace + wall * 2,
-      wall,
-    ], center: true })).translate([(boardSize + innerSpace + wall + 5) * 0.5, 0, wall / 2]),
+    union(
+      difference(cube({ size: [
+        boardSize + innerSpace + wall * 2,
+        boardSize + innerSpace + wall * 2,
+        wall,
+      ], center: true })),
+      difference(
+        cube({ size: [
+          boardSize + innerSpace,
+          boardSize + innerSpace,
+          wall,
+        ], center: true }),
+        cube({ size: [
+          boardSize + innerSpace - 2 * wall,
+          boardSize + innerSpace - 2 * wall,
+          wall,
+        ], center: true })
+      ).translate([0, 0, wall])
+    ).translate([(boardSize + innerSpace + wall + 5) * 0.5, 0, wall / 2]),
   ]
 }
 
