@@ -4,7 +4,7 @@ RUN set -ex \
  && apk --no-cache add \
       build-base \
       python \
- && npm install --global @jscad/cli
+ && yarn global add @jscad/cli
 
 ENTRYPOINT ["openjscad"]
 CMD ["--help"]
