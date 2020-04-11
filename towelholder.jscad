@@ -1,7 +1,7 @@
 /*
  * title      : Kitchen-towel holder for fridge
  * author     : Knut Ahlers
- * revision   : 0.1.0
+ * revision   : 0.1.1
  */
 
 function main () {
@@ -52,7 +52,7 @@ function gen_ring() {
       ),
       cylinder({ r: 22.5, h: 10 })
     ),
-    cylinder({ r: 16.5, h: 10 })
+    cylinder({ r: 17, h: 10 })
   )
 }
 
