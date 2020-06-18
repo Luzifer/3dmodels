@@ -8,4 +8,5 @@ In case you have use for those models thankfully to Github you can preview all m
 | ----- | ------ | ------- | ----- |
 | [`razorholder.stl`](razorholder.stl) | [`razorholder.jscad`](razorholder.jscad) | 0.1.1 | Holder for T-Shape razor |
 | [`sonoff_dev_housing.stl`](sonoff_dev_housing.stl) | [`sonoff_dev_housing.jscad`](sonoff_dev_housing.jscad) | 0.2.6 | Sonoff DEV box for lamp post |
+| [`tas6515_swimmer.stl`](tas6515_swimmer.stl) | [`tas6515_swimmer.jscad`](tas6515_swimmer.jscad) | 0.1.10 | Tassimo TAS6515 swimmer replacement |
 | [`towelholder.stl`](towelholder.stl) | [`towelholder.jscad`](towelholder.jscad) | 0.1.1 | Kitchen-towel holder for fridge |
