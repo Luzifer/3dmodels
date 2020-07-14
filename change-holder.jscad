@@ -1,18 +1,18 @@
 /*
  * title      : Spare-Change holder
  * author     : Knut Ahlers
- * revision   : 0.1.0
+ * revision   : 0.1.1
  */
 
 const coinCount = 15
 const coinDiameters = [
   24, // 1 EUR
-  26, // 2 EUR
+  27, // 2 EUR
 ]
-const coinHeight = 3 // Use max coin thickness + a little but less than 2 coins
+const coinHeight = 2.8 // Use max coin thickness + a little but less than 2 coins
 const fingerDia = 18 // Measure your finger, should be less than the smallest coin diameter
 const height = coinCount * coinHeight // Think of something to hold all the coins but not too big
-const wall = 2 // Something you're comfortable with to print and hold your coin
+const wall = 1.5 // Something you're comfortable with to print and hold your coin
 
 const blockHeight = () => coinDiameters.sort().reverse()[0] + wall
 const blockWidth = () => coinDiameters.reduce((sum, v) => sum + v) + (coinDiameters.length + 1) * wall
