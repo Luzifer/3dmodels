@@ -1,5 +1,5 @@
 /*
- * title      : Case for 2.13" Lilygo eink display
+ * title      : Case for [2.13" Lilygo eink display](https://www.aliexpress.com/item/4000626947976.html)
  * author     : Knut Ahlers
  * revision   : 0.1.1
  */
