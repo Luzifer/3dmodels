@@ -6,6 +6,7 @@ In case you have use for those models thankfully to Github you can preview all m
 
 | Model | Source | Version | Title |
 | ----- | ------ | ------- | ----- |
+| [`cable-holder.stl`](cable-holder.stl) | [`cable-holder.jscad`](cable-holder.jscad) | 0.1.0 | Cable holder for velcro tape |
 | [`change-holder.stl`](change-holder.stl) | [`change-holder.jscad`](change-holder.jscad) | 0.1.1 | Spare-Change holder |
 | [`eink_2-13_case.stl`](eink_2-13_case.stl) | [`eink_2-13_case.jscad`](eink_2-13_case.jscad) | 0.1.1 | Case for [2.13" Lilygo eink display](https://www.aliexpress.com/item/4000626947976.html) |
 | [`pir-holder.stl`](pir-holder.stl) | [`pir-holder.jscad`](pir-holder.jscad) | 0.1.1 | PIR holder |
