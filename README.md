@@ -15,3 +15,4 @@ In case you have use for those models thankfully to Github you can preview all m
 | [`sonoff_dev_housing.stl`](sonoff_dev_housing.stl) | [`sonoff_dev_housing.jscad`](sonoff_dev_housing.jscad) | 0.2.6 | Sonoff DEV box for lamp post |
 | [`tas6515_swimmer.stl`](tas6515_swimmer.stl) | [`tas6515_swimmer.jscad`](tas6515_swimmer.jscad) | 0.1.10 | Tassimo TAS6515 swimmer replacement |
 | [`towelholder.stl`](towelholder.stl) | [`towelholder.jscad`](towelholder.jscad) | 0.1.1 | Kitchen-towel holder for fridge |
+| [`waschmarken.stl`](waschmarken.stl) | [`waschmarken.jscad`](waschmarken.jscad) | 0.1.0 | Spring-holder for coins for the car-wash-park |
