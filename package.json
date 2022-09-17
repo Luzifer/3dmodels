@@ -1,0 +1,7 @@
+{
+  "name": "3dmodels",
+  "dependencies": {
+    "@jscad/cli": "^2.2.23",
+    "@jscad/modeling": "^2.10.0"
+  }
+}
