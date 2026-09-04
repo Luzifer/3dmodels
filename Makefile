@@ -4,7 +4,7 @@ default: $(stlfiles) README.md
 
 ### Generators
 
-%.stl:
+%.stl: %.jscad
 	./node_modules/.bin/jscad "$*.jscad"
 
 README.md:
