@@ -1,8 +1,12 @@
 /*
  * title      : Spare-Change holder
  * author     : Knut Ahlers
- * revision   : 0.1.1
+ * revision   : 0.1.2
  */
+
+const { subtract } = require('@jscad/modeling').booleans
+const { cuboid, cylinder } = require('@jscad/modeling').primitives
+const { rotateY, translate } = require('@jscad/modeling').transforms
 
 const coinCount = 15
 const coinDiameters = [
@@ -19,58 +23,66 @@ const blockWidth = () => coinDiameters.reduce((sum, v) => sum + v) + (coinDiamet
 
 const calcMove = (posY, slotDia) => slotDia / 2 + posY
 
-/* exported main */
-function main() {
+const main = () => {
   // Create a block containing everything
-  let obj = cube({ size: [
-    height,
-    blockWidth(),
-    blockHeight(),
-  ], center: true }).translate([0, blockWidth() / 2, 0])
+  let obj = translate(
+    [0, blockWidth() / 2, 0],
+    cuboid({ size: [
+      height,
+      blockWidth(),
+      blockHeight(),
+    ] }),
+  )
 
   let posY = wall
   for (const slotDia of coinDiameters) {
     // Remove pipes holding the coins
-    obj = difference(obj, cylinder({
-      center: true,
-      h: height,
-      r: slotDia / 2,
-    })
-      .rotateY(90)
-      .translate([
+    obj = subtract(
+      obj,
+      translate([
         wall,
         calcMove(posY, slotDia),
         blockHeight() / 2 - slotDia / 2,
-      ]))
+      ], rotateY(Math.PI / 2, cylinder({
+        height,
+        radius: slotDia / 2,
+      }))),
+    )
 
     // Remove finger access to coins
-    obj = difference(obj, cube({ size: [
-      height,
-      fingerDia,
-      slotDia / 2,
-    ], center: true })
-      .translate([
+    obj = subtract(
+      obj,
+      translate([
         0,
         posY + slotDia / 2,
         blockHeight() / 2 - slotDia / 4,
-      ]))
+      ], cuboid({ size: [
+        height,
+        fingerDia,
+        slotDia / 2,
+      ] })),
+    )
 
     // Remove one-coin-slot to pull coins out
-    obj = difference(obj, cube({ size: [
-      coinHeight,
-      slotDia,
-      slotDia / 2,
-    ], center: true })
-      .translate([
+    obj = subtract(
+      obj,
+      translate([
         height / -2 + wall + coinHeight / 2,
         posY + slotDia / 2,
         blockHeight() / 2 - slotDia / 4,
-      ]))
+      ], cuboid({ size: [
+        coinHeight,
+        slotDia,
+        slotDia / 2,
+      ] })),
+    )
 
     posY += slotDia + wall
   }
 
   return obj
 }
+
+module.exports = { main }
 
 // vim: set ft=javascript:

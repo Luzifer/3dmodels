@@ -33,8 +33,8 @@ function bottomCap() {
         height: wallThickness + springCompressedHeight,
         radius: springRadius,
         segments: 64,
-      })
-    ))
+      }),
+    )),
   )
 }
 
@@ -59,8 +59,8 @@ function innerBlock() {
         height: coinHeight,
         radius: springRadius - 0.75,
         segments: 64,
-      })
-    ))
+      }),
+    )),
   ))
 }
 
@@ -91,13 +91,13 @@ function topCap() {
         height: wallThickness,
         radius: 0.65 * topCapRadius,
         segments: 64,
-      }))
+      })),
     ),
     translate([0, 0, -0.5 * wallThickness], cylinder({
       height: 1.5 * coinHeight,
       radius: topCapInnerRadius,
       segments: 64,
-    }))
+    })),
   ))
 }
 
@@ -114,12 +114,12 @@ function main() {
           height: cylinderHeight(),
           radius: 0.5 * coinDia + coinToWallSpacing,
           segments: 64,
-        })
+        }),
       ),
-      translate([0, 0, 0.5 * cylinderHeight()], topCap())
+      translate([0, 0, 0.5 * cylinderHeight()], topCap()),
     )),
     translate([2.5 * outerRadius(), 0, 0], bottomCap()),
-    translate([-2.5 * outerRadius(), 0, 0], innerBlock())
+    translate([-2.5 * outerRadius(), 0, 0], innerBlock()),
   )
 }
 
